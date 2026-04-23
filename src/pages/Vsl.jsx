@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
+
 const pains = [
   'Grabas vídeos sin estrategia y nadie los ve.',
   'Tus anuncios cuestan cada vez más y convierten menos.',
@@ -28,30 +30,74 @@ const orbits = [
   },
 ]
 
+function Section({ className = '', children }) {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          io.disconnect()
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  return (
+    <section
+      ref={ref}
+      className={`section reveal ${className} ${visible ? 'is-visible' : ''}`.trim()}
+    >
+      {children}
+    </section>
+  )
+}
+
 export default function Vsl() {
   return (
     <div className="vsl-page">
       {/* 1. VSL */}
-      <section className="section section-hero">
+      <Section className="section-hero">
         <div className="section-inner">
           <p className="kicker">ADRIÁN RIVILLOS — PRESENTA</p>
           <h1 className="hero-tagline">
             Descubre el método que está cambiando las reglas del contenido
             audiovisual
           </h1>
-          <div className="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/kWIv4DUuDIE?rel=0&modestbranding=1"
-              title="Andrómeda — Vídeo principal"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
+          <div className="video-embed vsl-cover-frame">
+            <div className="vsl-cover-bg" aria-hidden="true" />
+            <div className="vsl-cover-overlay" aria-hidden="true" />
+            <div className="scanlines" aria-hidden="true" />
+            <div className="vsl-cover-content">
+              <p className="vsl-cover-kicker">EL MÉTODO</p>
+              <h2 className="vsl-cover-title">
+                DESCUBRE CÓMO REDUCIR TU{' '}
+                <span className="accent">COSTE POR LEAD</span>
+              </h2>
+              <p className="vsl-cover-sub">
+                Con anuncios creativos que cuentan historias
+              </p>
+              <button
+                type="button"
+                className="play play-big"
+                aria-label="Reproducir vídeo"
+              >
+                <span className="play-icon" aria-hidden="true" />
+              </button>
+            </div>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* 2. PROBLEMA */}
-      <section className="section">
+      <Section>
         <div className="section-inner">
           <h2 className="section-title">¿Te suena esto?</h2>
           <ul className="pain-list">
@@ -63,10 +109,10 @@ export default function Vsl() {
             ))}
           </ul>
         </div>
-      </section>
+      </Section>
 
       {/* 3. MÉTRICAS */}
-      <section className="section">
+      <Section>
         <div className="section-inner">
           <h2 className="section-title">
             Reduce hasta un 50% el coste por lead de tus campañas en Meta
@@ -133,10 +179,10 @@ export default function Vsl() {
             </article>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* 4. QUÉ INCLUYE — LAS 4 ÓRBITAS */}
-      <section className="section">
+      <Section>
         <div className="section-inner">
           <h2 className="section-title">Las 4 órbitas del viaje</h2>
           <div className="orbits-grid">
@@ -154,10 +200,10 @@ export default function Vsl() {
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* 5. CTA FINAL */}
-      <section className="section section-cta">
+      <Section className="section-cta">
         <div className="section-inner">
           <h2 className="section-title">¿Listo para viajar más lejos?</h2>
           <p className="cta-subtitle">
@@ -169,7 +215,7 @@ export default function Vsl() {
           </a>
           <p className="cta-fine">Plazas limitadas · Acceso inmediato</p>
         </div>
-      </section>
+      </Section>
     </div>
   )
 }

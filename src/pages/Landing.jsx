@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
+const TITLE_LETTERS = Array.from('ANDRÓMEDA')
+
 export default function Landing() {
   const navigate = useNavigate()
   const [name, setName] = useState('')
@@ -36,11 +38,27 @@ export default function Landing() {
     <div className="landing-page">
       <main className="landing">
         <header className="intro">
-          <p className="kicker">ADRIÁN RIVILLOS — PRESENTA</p>
-          <h1 className="title">ANDRÓMEDA</h1>
+          <img
+            src="/logo-andromeda.png"
+            alt="Andrómeda"
+            className="brand-logo fade-up"
+            style={{ '--delay': '0.1s' }}
+          />
+          <h1 className="title" aria-label="ANDRÓMEDA">
+            {TITLE_LETTERS.map((ch, i) => (
+              <span
+                key={i}
+                className="title-char"
+                aria-hidden="true"
+                style={{ animationDelay: `${0.35 + i * 0.07}s` }}
+              >
+                {ch}
+              </span>
+            ))}
+          </h1>
         </header>
 
-        <section className="pitch">
+        <section className="pitch fade-up" style={{ '--delay': '1.25s' }}>
           <p className="lead">
             La mayoría de marcas comunican.
             <br />
@@ -53,7 +71,7 @@ export default function Landing() {
         </section>
 
         <section className="vsl">
-          <div className="vsl-frame">
+          <div className="vsl-frame materialize" style={{ '--delay': '1.6s' }}>
             <div className="vsl-thumb" aria-hidden="true" />
             <div className="scanlines" aria-hidden="true" />
             <div className="vsl-vignette" aria-hidden="true" />
@@ -61,32 +79,44 @@ export default function Landing() {
               <span className="play-icon" aria-hidden="true" />
             </button>
           </div>
-          <p className="vsl-title">
+          <p className="vsl-title fade-up" style={{ '--delay': '2.5s' }}>
             Descubre cómo bajar costes de publicidad con anuncios creativos
           </p>
-          <p className="vsl-hint">Primero regístrate</p>
+          <p className="vsl-hint fade-up" style={{ '--delay': '2.6s' }}>
+            Primero regístrate
+          </p>
         </section>
 
-        <section className="signup" aria-label="Formulario de registro">
+        <section
+          className="signup fade-up"
+          style={{ '--delay': '2.8s' }}
+          aria-label="Formulario de registro"
+        >
           <form onSubmit={handleSubmit} className="form" noValidate>
-            <input
-              type="text"
-              className="field"
-              placeholder="Nombre"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              autoComplete="name"
-              required
-            />
-            <input
-              type="email"
-              className="field"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email"
-              required
-            />
+            <div className="field-wrap">
+              <input
+                type="text"
+                className="field"
+                placeholder="Nombre"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                autoComplete="name"
+                required
+              />
+              <span className="field-scan" aria-hidden="true" />
+            </div>
+            <div className="field-wrap">
+              <input
+                type="email"
+                className="field"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+                required
+              />
+              <span className="field-scan" aria-hidden="true" />
+            </div>
             <button type="submit" className="cta" disabled={submitting}>
               <span className="cta-text">
                 {submitting ? 'ENVIANDO…' : 'INICIAR EL VIAJE →'}
@@ -95,7 +125,7 @@ export default function Landing() {
           </form>
         </section>
 
-        <footer className="closing">
+        <footer className="closing fade-up" style={{ '--delay': '3.1s' }}>
           <p>
             Puedes seguir comunicando como todos.
             <br />O puedes viajar más lejos.
