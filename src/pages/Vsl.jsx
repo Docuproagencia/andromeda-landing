@@ -61,6 +61,8 @@ function Section({ className = '', children }) {
 }
 
 export default function Vsl() {
+  const [playing, setPlaying] = useState(false)
+
   return (
     <div className="vsl-page">
       {/* 1. VSL */}
@@ -72,26 +74,38 @@ export default function Vsl() {
             audiovisual
           </h1>
           <div className="video-embed vsl-cover-frame">
-            <div className="vsl-cover-bg" aria-hidden="true" />
-            <div className="vsl-cover-overlay" aria-hidden="true" />
-            <div className="scanlines" aria-hidden="true" />
-            <div className="vsl-cover-content">
-              <p className="vsl-cover-kicker">EL MÉTODO</p>
-              <h2 className="vsl-cover-title">
-                DESCUBRE CÓMO REDUCIR TU{' '}
-                <span className="accent">COSTE POR LEAD</span>
-              </h2>
-              <p className="vsl-cover-sub">
-                Con anuncios creativos que cuentan historias
-              </p>
+            {playing ? (
+              <iframe
+                src="https://www.youtube.com/embed/kWIv4DUuDIE?autoplay=1&rel=0&modestbranding=1"
+                title="Andrómeda — Vídeo principal"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
               <button
                 type="button"
-                className="play play-big"
+                className="vsl-cover-trigger"
+                onClick={() => setPlaying(true)}
                 aria-label="Reproducir vídeo"
               >
-                <span className="play-icon" aria-hidden="true" />
+                <div className="vsl-cover-bg" aria-hidden="true" />
+                <div className="vsl-cover-overlay" aria-hidden="true" />
+                <div className="scanlines" aria-hidden="true" />
+                <div className="vsl-cover-content">
+                  <p className="vsl-cover-kicker">EL MÉTODO</p>
+                  <h2 className="vsl-cover-title">
+                    DESCUBRE CÓMO REDUCIR TU{' '}
+                    <span className="accent">COSTE POR LEAD</span>
+                  </h2>
+                  <p className="vsl-cover-sub">
+                    Con anuncios creativos que cuentan historias
+                  </p>
+                  <span className="play play-big" aria-hidden="true">
+                    <span className="play-icon" />
+                  </span>
+                </div>
               </button>
-            </div>
+            )}
           </div>
         </div>
       </Section>

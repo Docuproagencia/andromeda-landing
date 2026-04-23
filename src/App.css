@@ -800,8 +800,26 @@
 }
 
 /* --- VSL cover (imagen + texto + play) --- */
-.vsl-cover-frame {
-  cursor: default;
+.vsl-cover-trigger {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.vsl-cover-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
 .vsl-cover-bg {
@@ -812,6 +830,11 @@
   background-position: center;
   background-repeat: no-repeat;
   pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vsl-cover-trigger:hover .vsl-cover-bg {
+  transform: scale(1.03);
 }
 
 .vsl-cover-overlay {
