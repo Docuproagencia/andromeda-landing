@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
-import { supabase } from './lib/supabase'
+import { useEffect, useRef } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Landing from './pages/Landing'
+import Vsl from './pages/Vsl'
 import './App.css'
 
 function ParticleField() {
@@ -57,17 +59,16 @@ function ParticleField() {
           speedMul = 0.55
         }
 
-        // direcciones variadas: mayoría subiendo, algunas diagonales
         const directionRoll = Math.random()
         let angle
         if (directionRoll < 0.55) {
-          angle = rand(-Math.PI * 0.6, -Math.PI * 0.4) // arriba
+          angle = rand(-Math.PI * 0.6, -Math.PI * 0.4)
         } else if (directionRoll < 0.8) {
-          angle = rand(-Math.PI * 0.85, -Math.PI * 0.62) // diagonal arriba-izq
+          angle = rand(-Math.PI * 0.85, -Math.PI * 0.62)
         } else if (directionRoll < 0.95) {
-          angle = rand(-Math.PI * 0.38, -Math.PI * 0.15) // diagonal arriba-der
+          angle = rand(-Math.PI * 0.38, -Math.PI * 0.15)
         } else {
-          angle = rand(0, Math.PI * 2) // deriva libre
+          angle = rand(0, Math.PI * 2)
         }
         const speed = rand(0.08, 0.38) * speedMul
 
@@ -113,7 +114,6 @@ function ParticleField() {
         else if (p.x > width + 24) p.x = -12
       }
 
-      // líneas: desde partículas brillantes a vecinas
       ctx.lineWidth = 0.6
       for (let i = 0; i < particles.length; i++) {
         const a = particles[i]
@@ -136,7 +136,6 @@ function ParticleField() {
         }
       }
 
-      // partículas
       for (const p of particles) {
         const twinkle = 0.82 + Math.sin(p.phase) * 0.18
         const alpha = p.opacity * twinkle
@@ -183,125 +182,25 @@ function ParticleField() {
   )
 }
 
+function FogStack() {
+  return (
+    <div className="fog-stack" aria-hidden="true">
+      <div className="fog-layer fog-layer-1" />
+      <div className="fog-layer fog-layer-2" />
+      <div className="fog-layer fog-layer-3" />
+    </div>
+  )
+}
+
 function App() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [submitting, setSubmitting] = useState(false)
-  const [toast, setToast] = useState(null)
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (submitting) return
-    setSubmitting(true)
-    const { error } = await supabase.from('leads').insert({
-      name: name.trim(),
-      email: email.trim().toLowerCase(),
-    })
-    setSubmitting(false)
-    if (error) {
-      setToast({
-        type: 'error',
-        msg: 'No hemos podido guardarte. Inténtalo de nuevo.',
-      })
-      return
-    }
-    setToast({
-      type: 'success',
-      msg: 'Registro completado. Bienvenido a Andrómeda.',
-    })
-    setName('')
-    setEmail('')
-  }
-
-  useEffect(() => {
-    if (!toast) return
-    const t = setTimeout(() => setToast(null), 4200)
-    return () => clearTimeout(t)
-  }, [toast])
-
   return (
     <div className="app">
       <ParticleField />
-      <div className="fog-stack" aria-hidden="true">
-        <div className="fog-layer fog-layer-1" />
-        <div className="fog-layer fog-layer-2" />
-        <div className="fog-layer fog-layer-3" />
-      </div>
-
-      <main className="landing">
-        <header className="intro">
-          <p className="kicker">ADRIÁN RIVILLOS — PRESENTA</p>
-          <h1 className="title">ANDRÓMEDA</h1>
-        </header>
-
-        <section className="pitch">
-          <p className="lead">
-            La mayoría de marcas comunican.
-            <br />
-            Muy pocas cuentan historias.
-          </p>
-          <p className="sub">
-            Descubre cómo bajar costes de publicidad con anuncios creativos que
-            conectan.
-          </p>
-        </section>
-
-        <section className="vsl">
-          <div className="vsl-frame">
-            <div className="vsl-thumb" aria-hidden="true" />
-            <div className="scanlines" aria-hidden="true" />
-            <div className="vsl-vignette" aria-hidden="true" />
-            <button type="button" className="play" aria-label="Reproducir vídeo">
-              <span className="play-icon" aria-hidden="true" />
-            </button>
-          </div>
-          <p className="vsl-title">
-            Descubre cómo bajar costes de publicidad con anuncios creativos
-          </p>
-          <p className="vsl-hint">Primero regístrate</p>
-        </section>
-
-        <section className="signup" aria-label="Formulario de registro">
-          <form onSubmit={handleSubmit} className="form" noValidate>
-            <input
-              type="text"
-              className="field"
-              placeholder="Nombre"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              autoComplete="name"
-              required
-            />
-            <input
-              type="email"
-              className="field"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email"
-              required
-            />
-            <button type="submit" className="cta" disabled={submitting}>
-              <span className="cta-text">
-                {submitting ? 'ENVIANDO…' : 'INICIAR EL VIAJE →'}
-              </span>
-            </button>
-          </form>
-        </section>
-
-        <footer className="closing">
-          <p>
-            Puedes seguir comunicando como todos.
-            <br />O puedes viajar más lejos.
-          </p>
-        </footer>
-      </main>
-
-      {toast && (
-        <div className={`toast toast-${toast.type}`} role="status">
-          {toast.msg}
-        </div>
-      )}
+      <FogStack />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/vsl" element={<Vsl />} />
+      </Routes>
     </div>
   )
 }
