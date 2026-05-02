@@ -224,11 +224,11 @@ export default function Vsl() {
                   <div className="vsl-cover-content">
                     <p className="vsl-cover-kicker">EL MÉTODO</p>
                     <h2 className="vsl-cover-title">
-                      DESCUBRE CÓMO REDUCIR TU{' '}
-                      <span className="accent">COSTE POR LEAD</span>
+                      DESCUBRE CÓMO HACER{' '}
+                      <span className="accent">CINE EN TUS ANUNCIOS</span>
                     </h2>
                     <p className="vsl-cover-sub">
-                      Con anuncios creativos que cuentan historias
+                      Narrativa cinematográfica aplicada a la publicidad
                     </p>
                     <span className="play play-big" aria-hidden="true">
                       <span className="play-icon" />
@@ -246,7 +246,7 @@ export default function Vsl() {
         {(visible) => (
           <div className="section-inner">
             <h2 className="section-title fade-up" style={fade(0, visible)}>
-              El problema no son tus ads. Es tu sistema.
+              El problema no son tus vídeos. Es cómo los cuentas.
             </h2>
 
             <div className="pain-grid">
