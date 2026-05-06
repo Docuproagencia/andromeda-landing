@@ -452,11 +452,7 @@ export default function Vsl() {
                 </p>
               </div>
 
-              <a
-                href="#"
-                className="cta cta-big fade-up"
-                style={fade(0.75, visible)}
-              >
+              <a href="#" className="cta cta-big">
                 <span className="cta-text">Inicia tu viaje</span>
               </a>
 
