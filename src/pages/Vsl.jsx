@@ -457,9 +457,7 @@ export default function Vsl() {
                 className="cta cta-big fade-up"
                 style={fade(0.75, visible)}
               >
-                <span className="cta-text">
-                  Iniciar el viaje a Andrómeda
-                </span>
+                <span className="cta-text">Inicia tu viaje</span>
               </a>
 
               <p className="guarantee fade-up" style={fade(0.9, visible)}>
