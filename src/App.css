@@ -1605,9 +1605,9 @@
 }
 
 .about-photo {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
+  width: 220px;
+  height: auto;
+  border-radius: 16px;
   object-fit: cover;
   border: 2px solid var(--accent-dim);
   flex-shrink: 0;

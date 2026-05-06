@@ -224,11 +224,11 @@ export default function Vsl() {
                   <div className="vsl-cover-content">
                     <p className="vsl-cover-kicker">EL MÉTODO</p>
                     <h2 className="vsl-cover-title">
-                      DESCUBRE CÓMO HACER{' '}
-                      <span className="accent">CINE EN TUS ANUNCIOS</span>
+                      REDUCE TU{' '}
+                      <span className="accent">COSTE POR LEAD</span>
                     </h2>
                     <p className="vsl-cover-sub">
-                      Narrativa cinematográfica aplicada a la publicidad
+                      Con anuncios creativos
                     </p>
                     <span className="play play-big" aria-hidden="true">
                       <span className="play-icon" />
@@ -391,7 +391,7 @@ export default function Vsl() {
 
             <div className="about-block fade-up" style={fade(0.15, visible)}>
               <img
-                src="/logo-andromeda.png"
+                src="/adrian-commander.jpg"
                 alt="Adrián Rivillos"
                 className="about-photo"
               />
